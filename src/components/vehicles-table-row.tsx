@@ -15,9 +15,7 @@ export function VehiclesTableRow() {
       <TableCell className="text-muted-foreground border-r-2 border-border px-4 py-2 text-center">
         F MAX Select
       </TableCell>
-      <TableCell className="font-medium text-center">
-        Em manutenção
-      </TableCell>
+      <TableCell className="font-medium text-center">Em manutenção</TableCell>
     </TableRow>
   )
 }

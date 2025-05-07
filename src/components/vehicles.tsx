@@ -15,11 +15,21 @@ export function Vehicles() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[140px] border-r-2 border-border px-4 py-2 text-center text-lg font-semibold">Placa</TableHead>
-                <TableHead className="w-[140px] border-r-2 border-border px-4 py-2 text-center text-lg font-semibold">Frota</TableHead>
-                <TableHead className="w-[140px] border-r-2 border-border px-4 py-2 text-center text-lg font-semibold">Tipo</TableHead>
-                <TableHead className="w-[140px] border-r-2 border-border px-4 py-2 text-center text-lg font-semibold">Modelo</TableHead>
-                <TableHead className="w-[140px] text-center text-lg font-semibold">Status</TableHead>
+                <TableHead className="w-[140px] border-r-2 border-border px-4 py-2 text-center text-lg font-semibold">
+                  Placa
+                </TableHead>
+                <TableHead className="w-[140px] border-r-2 border-border px-4 py-2 text-center text-lg font-semibold">
+                  Frota
+                </TableHead>
+                <TableHead className="w-[140px] border-r-2 border-border px-4 py-2 text-center text-lg font-semibold">
+                  Tipo
+                </TableHead>
+                <TableHead className="w-[140px] border-r-2 border-border px-4 py-2 text-center text-lg font-semibold">
+                  Modelo
+                </TableHead>
+                <TableHead className="w-[140px] text-center text-lg font-semibold">
+                  Status
+                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
