@@ -1,4 +1,4 @@
-import { Helmet, HelmetProvider } from "@dr.pogodin/react-helmet";
+import { Helmet, HelmetProvider } from '@dr.pogodin/react-helmet'
 
 export function App() {
   return (
