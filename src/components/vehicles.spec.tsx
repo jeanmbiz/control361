@@ -2,7 +2,7 @@ import { getVehicles } from '@/api/get-vehicles'
 import {
   mockLastPageResponse,
   mockVehicleResponse,
-} from '@/components/mocks/mockVehiclesResponse'
+} from '@/api/mocks/mockVehiclesResponse'
 import { useVehiclesQuery } from '@/queries/useVehiclesQuery'
 import { useVehicleStore } from '@/store/vehiclesStore'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
