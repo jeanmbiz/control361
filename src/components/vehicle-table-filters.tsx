@@ -2,7 +2,7 @@ import { Label } from '@/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { useVehicleStore } from '@/store/vehiclesStore'
 
-export function VehicleTableTypes() {
+export function VehicleTableFilters() {
   const type = useVehicleStore(state => state.type)
   const setType = useVehicleStore(state => state.setType)
 
