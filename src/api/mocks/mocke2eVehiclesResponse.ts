@@ -39,7 +39,7 @@ export const getVehiclesMock = http.get<
   GetVehiclesResponse
 >('/api/vehicles', ({ request }) => {
   const url = new URL(request.url)
-  const page = parseInt(url.searchParams.get('page') || '1', 10)
+  const page = Number.parseInt(url.searchParams.get('page') || '1', 10)
   const type = (url.searchParams.get('type') as 'vehicle' | 'implement') || 'vehicle'
   
   const totalPages = 2
