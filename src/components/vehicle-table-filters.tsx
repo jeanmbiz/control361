@@ -39,20 +39,6 @@ export function VehicleTableTypes() {
           </Label>
         </div>
       </RadioGroup>
-      {/* <div className="flex items-center gap-5">
-        <Input
-          placeholder="Buscar por placa ou frota"
-          className="h-8 w-[320px]"
-        />
-        <Button
-          className="bg-[var(--primary)] hover:bg-[var(--primary)] hover:opacity-90 text-white cursor-pointer px-15 font-bold"
-          variant="secondary"
-          size="lg"
-          type="submit"
-        >
-          Novo
-        </Button>
-      </div> */}
     </form>
   )
 }
