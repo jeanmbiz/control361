@@ -1,7 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { env } from '@/env'
 import { useVehiclesMapQuery } from '@/queries/useVehiclesMapQuery'
-import { currentDateTime } from '@/utils/currentDateTime'
+import { useVehicleStore } from '@/store/vehiclesStore'
+import { useCurrentDateTime } from '@/utils/useCurrentDateTime'
 import { Map as GoogleMap, useMap } from '@vis.gl/react-google-maps'
 import { Loader2 } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState } from 'react'
@@ -10,10 +11,14 @@ import { VehicleMarker } from './vehicle-marker'
 
 export function MapCard() {
   const { mapVehicles, isFetchingMap, isLoadingMap } = useVehiclesMapQuery()
+  const mapRefetchInterval = useVehicleStore(state => state.mapRefetchInterval)
+  const currentDateTime = useCurrentDateTime(mapRefetchInterval)
 
   const map = useMap()
 
-  const [selectedVehicleId, setSelectedVehicleId] = useState<string | null>(null)
+  const [selectedVehicleId, setSelectedVehicleId] = useState<string | null>(
+    null
+  )
 
   const handleVehicleClick = useCallback((id: string) => {
     setSelectedVehicleId((prevId: string | null) => (prevId === id ? null : id))

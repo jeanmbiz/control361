@@ -1,5 +1,6 @@
 import type { LocationVehicle } from '@/api/get-vehicles'
-import { currentDateTime } from '@/utils/currentDateTime'
+import { useVehicleStore } from '@/store/vehiclesStore'
+import { useCurrentDateTime } from '@/utils/useCurrentDateTime'
 import {
   AdvancedMarker,
   AdvancedMarkerAnchorPoint,
@@ -24,6 +25,8 @@ export function VehicleMarker({
   onClose,
   onMarkerRef,
 }: VehiclesMarkerProps) {
+  const mapRefetchInterval = useVehicleStore(state => state.mapRefetchInterval)
+  const currentDateTime = useCurrentDateTime(mapRefetchInterval)
   const [markerRef, markerInstance] = useAdvancedMarkerRef()
 
   useEffect(() => {
