@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-export function useCurrentDateTime(updateInterval:number) {
+export function useCurrentDateTime(updateInterval: number) {
   const [dateTime, setDateTime] = useState(() => {
     return {
       date: new Date().toLocaleDateString('pt-BR'),
