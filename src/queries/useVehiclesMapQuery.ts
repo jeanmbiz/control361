@@ -1,7 +1,10 @@
 import { getMapVehicles } from '@/api/get-map-vehicles'
+import { useVehicleStore } from '@/store/vehiclesStore'
 import { useQuery } from '@tanstack/react-query'
 
 export function useVehiclesMapQuery() {
+  const mapRefetchInterval = useVehicleStore(state => state.mapRefetchInterval)
+  const mapStaleTime = useVehicleStore(state => state.mapStaleTime)
   const {
     data: mapVehicles,
     isLoading: isLoadingMap,
@@ -9,8 +12,8 @@ export function useVehiclesMapQuery() {
   } = useQuery({
     queryKey: ['mapVehicles'],
     queryFn: getMapVehicles,
-    refetchInterval: 120000, // 2 minutos
-    staleTime: 110000, // 1:50 minuto
+    refetchInterval: mapRefetchInterval, // 2 minutos
+    staleTime: mapStaleTime, // 1:50 minuto
   })
 
   return {
