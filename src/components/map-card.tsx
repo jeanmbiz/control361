@@ -1,8 +1,8 @@
+import { themeVars } from '@/components/theme/themeVars'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { env } from '@/env'
 import { useVehiclesMapQuery } from '@/queries/useVehiclesMapQuery'
 import { useVehicleStore } from '@/store/vehiclesStore'
-import { themeVars } from '@/components/theme/themeVars'
 import { useCurrentDateTime } from '@/utils/useCurrentDateTime'
 import { Map as GoogleMap, useMap } from '@vis.gl/react-google-maps'
 import { Loader2 } from 'lucide-react'
@@ -52,7 +52,7 @@ export function MapCard() {
           Mapa Rastreador
           {isFetchingMap && (
             <span
-            style={{ color: themeVars.mutedForeground }} 
+              style={{ color: themeVars.mutedForeground }}
               className="ml-2 text-xs flex items-center gap-1"
             >
               <Loader2 className="h-3 w-3 animate-spin" />
@@ -60,9 +60,7 @@ export function MapCard() {
             </span>
           )}
         </CardTitle>
-        <div 
-        style={{ color: themeVars.mutedForeground }} 
-        className="text-xs">
+        <div style={{ color: themeVars.mutedForeground }} className="text-xs">
           {currentDateTime}
         </div>
       </CardHeader>
@@ -79,6 +77,7 @@ export function MapCard() {
               const isInfoWindowOpen = selectedVehicleId === vehicle.id
               return (
                 <VehicleMarker
+                  data-testid="vehicle-marker"
                   key={vehicle.id}
                   vehicle={vehicle}
                   onClick={() => handleVehicleClick(vehicle.id)}
@@ -93,7 +92,10 @@ export function MapCard() {
           </GoogleMap>
         </div>
         {isLoadingMap && !mapVehicles && (
-          <div className="absolute inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center rounded-xl z-50">
+          <div
+            className="absolute inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center rounded-xl z-50"
+            data-testid="spinner"
+          >
             <Spinner />
           </div>
         )}
