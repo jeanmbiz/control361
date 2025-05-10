@@ -1,4 +1,5 @@
 import type { LocationVehicle } from '@/api/get-vehicles'
+import { themeVars } from '@/components/theme/themeVars'
 import { useVehicleStore } from '@/store/vehiclesStore'
 import { useCurrentDateTime } from '@/utils/useCurrentDateTime'
 import {
@@ -46,15 +47,15 @@ export function VehicleMarker({
         <div
           className="w-14 h-14 border-4 rounded-full flex items-center justify-center shadow-md"
           style={{
-            backgroundColor: 'var(--chart-3)',
-            borderColor: 'var(--chart-3)',
+            backgroundColor: themeVars.chart3,
+            borderColor: themeVars.chart3,
           }}
         >
           <div
             className="w-12 h-12 border-2 rounded-full flex items-center justify-center shadow-md"
             style={{
-              backgroundColor: 'var(--chart-3)',
-              borderColor: 'white',
+              backgroundColor: themeVars.chart3,
+              borderColor: themeVars.white,
             }}
           >
             <Truck size={30} className="text-white" />
@@ -63,7 +64,7 @@ export function VehicleMarker({
         <div
           className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-x-8 border-x-transparent border-t-[12px]"
           style={{
-            borderTopColor: 'var(--chart-3)',
+            borderTopColor: themeVars.chart3,
           }}
         />
       </div>
@@ -75,23 +76,33 @@ export function VehicleMarker({
           anchor={markerInstance}
           onClose={onClose}
         >
-          <div className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white p-4 rounded-xl shadow-xl min-w-[220px] space-y-1 text-sm">
+          <div
+            className=" p-4 rounded-xl shadow-xl min-w-[220px] space-y-1 text-sm"
+            style={{
+              backgroundColor: themeVars.background,
+              color: themeVars.mutedForeground,
+            }}
+          >
             <div className="text-base font-bold leading-tight">
               Placa {vehicle.plate}
             </div>
-            <div className="text-sm text-zinc-700 dark:text-zinc-300">
+            <div className="text-sm" style={{ color: themeVars.foreground }}>
               Frota {vehicle.fleet}
             </div>
-            <div className="text-sm text-zinc-700 dark:text-zinc-300">
+            <div className="text-sm" style={{ color: themeVars.foreground }}>
               {currentDateTime}
             </div>
             <a
               href={`https://www.google.com/maps?q=${vehicle.lat},${vehicle.lng}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs text-blue-600 dark:text-blue-400 underline"
+              className="text-xs underline"
+              style={{ color: themeVars.primary }}
             >
-              <div className="pt-1 text-xs text-zinc-500 dark:text-zinc-400">
+              <div
+                className="pt-1 text-xs"
+                style={{ color: themeVars.mutedForeground }}
+              >
                 {vehicle.lat}, {vehicle.lng}
               </div>
             </a>

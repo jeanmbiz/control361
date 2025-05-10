@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { env } from '@/env'
 import { useVehiclesMapQuery } from '@/queries/useVehiclesMapQuery'
 import { useVehicleStore } from '@/store/vehiclesStore'
+import { themeVars } from '@/components/theme/themeVars'
 import { useCurrentDateTime } from '@/utils/useCurrentDateTime'
 import { Map as GoogleMap, useMap } from '@vis.gl/react-google-maps'
 import { Loader2 } from 'lucide-react'
@@ -50,13 +51,20 @@ export function MapCard() {
         <CardTitle className="text-base font-semibold flex items-center">
           Mapa Rastreador
           {isFetchingMap && (
-            <span className="ml-2 text-xs text-zinc-500 flex items-center gap-1">
+            <span
+            style={{ color: themeVars.mutedForeground }} 
+              className="ml-2 text-xs flex items-center gap-1"
+            >
               <Loader2 className="h-3 w-3 animate-spin" />
               Atualizando...
             </span>
           )}
         </CardTitle>
-        <div className="text-xs text-zinc-500">{currentDateTime}</div>
+        <div 
+        style={{ color: themeVars.mutedForeground }} 
+        className="text-xs">
+          {currentDateTime}
+        </div>
       </CardHeader>
       <CardContent className="w-full h-[400px] md:h-[600px] rounded-lg overflow-hidden relative">
         <div className="w-full h-full rounded-xl overflow-hidden">
