@@ -5,9 +5,42 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { VehiclesTableRow } from './vehicles-table-row'
+import { useVehiclesQuery } from '@/queries/useVehiclesQuery'
+import { useEffect, useRef } from 'react'
+import { Spinner } from './spinner'
+import { VehiclesTableRow } from './vehicle-table-row'
 
 export function Vehicles() {
+  const {
+    vehicles,
+    fetchNextPageVehicles,
+    hasNextPageVehicles,
+    isFetchingNextPageVehicles,
+  } = useVehiclesQuery()
+
+  const loaderRef = useRef(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries => {
+        if (
+          entries[0]?.isIntersecting &&
+          hasNextPageVehicles &&
+          !isFetchingNextPageVehicles
+        ) {
+          fetchNextPageVehicles()
+        }
+      },
+      { threshold: 0.1 }
+    )
+
+    if (loaderRef.current) {
+      observer.observe(loaderRef.current)
+    }
+
+    return () => observer.disconnect()
+  }, [fetchNextPageVehicles, hasNextPageVehicles, isFetchingNextPageVehicles])
+
   return (
     <>
       <div className="space-y-2.5">
@@ -33,13 +66,23 @@ export function Vehicles() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {Array.from({ length: 20 }).map((_, i) => {
-                return <VehiclesTableRow key={i} />
-              })}
+              {vehicles?.map(page =>
+                page.content.vehicles.map(vehicle => (
+                  <VehiclesTableRow key={vehicle.id} vehicle={vehicle} />
+                ))
+              )}
             </TableBody>
           </Table>
         </div>
-        <div>paginação / scroll infinito</div>
+        <div ref={loaderRef} className="py-4 text-center text-muted-foreground">
+          {isFetchingNextPageVehicles ? (
+            'Carregando mais veículos...'
+          ) : vehicles?.length ? (
+            'Fim da lista'
+          ) : (
+            <Spinner />
+          )}
+        </div>
       </div>
     </>
   )
