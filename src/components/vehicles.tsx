@@ -74,7 +74,11 @@ export function Vehicles() {
             </TableBody>
           </Table>
         </div>
-        <div ref={loaderRef} className="py-4 text-center text-muted-foreground">
+        <div
+          data-testid="loader"
+          ref={loaderRef}
+          className="py-4 text-center text-muted-foreground"
+        >
           {isFetchingNextPageVehicles ? (
             'Carregando mais veículos...'
           ) : vehicles?.length ? (
