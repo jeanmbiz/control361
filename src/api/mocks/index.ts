@@ -1,7 +1,8 @@
 import { setupWorker } from 'msw/browser'
 
 import { env } from '@/env'
-import { getVehiclesMock } from './mocke2eVehiclesResponse'
+import { getVehiclesMock } from './get-vehicles-mock'
+
 
 export const worker = setupWorker(getVehiclesMock)
 

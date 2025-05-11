@@ -32,11 +32,6 @@ export const createMockVehiclesResponse = (
 }
 
 export const mockVehicleResponse = createMockVehiclesResponse(1, 2, 'vehicle')
-export const mockImplementResponse = createMockVehiclesResponse(
-  1,
-  2,
-  'implement'
-)
 export const mockLastPageResponse = createMockVehiclesResponse(
   2,
   2,
