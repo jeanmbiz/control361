@@ -4,7 +4,7 @@ export interface Vehicle {
   id: string
   plate: string
   fleet: string | null
-  type: 'vehicle' | 'implement'
+  type: string
   model: string
   nameOwner: string
   status: string
