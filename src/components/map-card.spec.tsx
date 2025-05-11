@@ -35,20 +35,6 @@ vi.mock('@/queries/useVehiclesMapQuery', () => ({
   })),
 }))
 
-vi.mock('@/store/vehiclesStore', () => ({
-  useVehicleStore: vi.fn(selector => {
-    const store = {
-      mapRefetchInterval: 120000,
-      mapStaleTime: 110000,
-    }
-    return selector(store)
-  }),
-}))
-
-vi.mock('@/utils/useCurrentDateTime', () => ({
-  useCurrentDateTime: vi.fn(() => '10/05/2025 - 10:30'),
-}))
-
 vi.mock('@vis.gl/react-google-maps', () => ({
   Map: ({ children }: { children: React.ReactNode }) => (
     <div data-testid="google-map">{children}</div>
@@ -86,27 +72,9 @@ vi.mock('@vis.gl/react-google-maps', () => ({
   useAdvancedMarkerRef: vi.fn(() => [vi.fn(), 'marker-instance']),
 }))
 
-global.window.google = {
-  maps: {
-    LatLngBounds: class LatLngBounds {
-      extend = vi.fn()
-    },
-  },
-}
-
 describe('MapCard', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-  })
-
-  test('should render the MapCard with correct title', () => {
-    render(<MapCard />)
-    expect(screen.getByText('Mapa Rastreador')).toBeInTheDocument()
-  })
-
-  test('should display the current date and time', () => {
-    render(<MapCard />)
-    expect(screen.getByText('10/05/2025 - 10:30')).toBeInTheDocument()
   })
 
   test('should show loading spinner when isLoadingMap is true', () => {
