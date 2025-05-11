@@ -38,7 +38,7 @@ git clone git@github.com:jeanmbiz/control361.git
 #### Instale as dependências:
 
 ```
-npm run install
+npm install
 ```
 
 #### Rode o projeto:
