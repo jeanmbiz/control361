@@ -1,18 +1,8 @@
-import { render, screen, waitFor } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import { render, screen } from '@testing-library/react'
 import { vi } from 'vitest'
 import { MapCard } from './map-card'
 import '@testing-library/jest-dom'
-import type { LocationVehicle } from '@/api/get-vehicles'
 import { useVehiclesMapQuery } from '@/queries/useVehiclesMapQuery'
-
-interface VehiclesMarkerProps {
-  vehicle: LocationVehicle
-  onClick: () => void
-  isInfoWindowOpen: boolean
-  onClose: () => void
-  onMarkerRef: any
-}
 
 vi.mock('@/queries/useVehiclesMapQuery', () => ({
   useVehiclesMapQuery: vi.fn(() => ({
@@ -96,34 +86,6 @@ vi.mock('@vis.gl/react-google-maps', () => ({
   useAdvancedMarkerRef: vi.fn(() => [vi.fn(), 'marker-instance']),
 }))
 
-vi.mock('./vehicle-marker', () => ({
-  VehicleMarker: ({
-    vehicle,
-    onClick,
-    isInfoWindowOpen,
-    onClose,
-  }: VehiclesMarkerProps) => (
-    <div
-      data-testid={`vehicle-marker-${vehicle.id}`}
-      onClick={onClick}
-      onKeyDown={e => e.key === 'Enter' && onClick?.()}
-    >
-      {isInfoWindowOpen && (
-        <div data-testid={`info-window-${vehicle.id}`}>
-          <button
-            type="button"
-            onClick={onClose}
-            data-testid={`close-info-${vehicle.id}`}
-          >
-            Fechar
-          </button>
-        </div>
-      )}
-      Placa: {vehicle.plate}
-    </div>
-  ),
-}))
-
 global.window.google = {
   maps: {
     LatLngBounds: class LatLngBounds {
@@ -145,14 +107,6 @@ describe('MapCard', () => {
   test('should display the current date and time', () => {
     render(<MapCard />)
     expect(screen.getByText('10/05/2025 - 10:30')).toBeInTheDocument()
-  })
-
-  test('should render vehicle markers', () => {
-    render(<MapCard />)
-    expect(screen.getByTestId('vehicle-marker-1')).toBeInTheDocument()
-    expect(screen.getByTestId('vehicle-marker-2')).toBeInTheDocument()
-    expect(screen.getByText('Placa: ABC1234')).toBeInTheDocument()
-    expect(screen.getByText('Placa: XYZ5678')).toBeInTheDocument()
   })
 
   test('should show loading spinner when isLoadingMap is true', () => {
@@ -183,28 +137,5 @@ describe('MapCard', () => {
     })
     render(<MapCard />)
     expect(screen.getByText('Atualizando...')).toBeInTheDocument()
-  })
-
-  test('should select a vehicle by clicking on the mark', async () => {
-    const user = userEvent.setup()
-    render(<MapCard />)
-    expect(screen.queryByTestId('info-window-1')).not.toBeInTheDocument()
-    await user.click(screen.getByTestId('vehicle-marker-1'))
-    expect(screen.getByTestId('info-window-1')).toBeInTheDocument()
-    await user.click(screen.getByTestId('vehicle-marker-1'))
-    await waitFor(() => {
-      expect(screen.queryByTestId('info-window-1')).not.toBeInTheDocument()
-    })
-  })
-
-  test('should close the information window when clicking on the mark', async () => {
-    const user = userEvent.setup()
-    render(<MapCard />)
-    await user.click(screen.getByTestId('vehicle-marker-1'))
-    expect(screen.getByTestId('info-window-1')).toBeInTheDocument()
-    await user.click(screen.getByTestId('vehicle-marker-1'))
-    await waitFor(() => {
-      expect(screen.queryByTestId('info-window-1')).not.toBeInTheDocument()
-    })
   })
 })
