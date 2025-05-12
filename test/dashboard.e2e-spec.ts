@@ -54,7 +54,7 @@ test('Open Map marking information', async ({ page }) => {
 
   await page.waitForSelector('text=Mapa Rastreador', { timeout: 5000 })
 
-  // este selector podre falhar
+  // este seletor no mapa pode falhar, rode novamente.
   await page.locator('gmp-advanced-marker:nth-child(33)').click()
 
   const markerInformation = page.locator('gmp-advanced-marker:nth-child(33)')
