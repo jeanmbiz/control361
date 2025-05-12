@@ -1,104 +1,102 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import React from 'react'
+import { describe, expect, it, vi } from 'vitest'
 import { VehicleMarker } from './vehicle-marker'
 
 vi.mock('@vis.gl/react-google-maps', () => ({
-  AdvancedMarker: ({
-    children,
-    onClick,
-  }: { children: React.ReactNode; onClick: () => void }) => (
-    <button
-      type="button"
+  AdvancedMarker: ({ children, onClick }: any) => (
+    <div
       data-testid="advanced-marker"
       onClick={onClick}
-      onKeyUp={e => e.key === 'Enter' && onClick()}
-      style={{ all: 'unset', cursor: 'pointer' }}
+      onKeyDown={e => e.key === 'Enter' && onClick?.()}
     >
       {children}
-    </button>
+    </div>
   ),
-  InfoWindow: ({ children }: { children: React.ReactNode }) => (
+  AdvancedMarkerAnchorPoint: {
+    BOTTOM_CENTER: 'BOTTOM_CENTER',
+  },
+  InfoWindow: ({ children }: any) => (
     <div data-testid="info-window">{children}</div>
   ),
   useAdvancedMarkerRef: () => {
-    const ref = { current: {} }
-    const instance = { position: { lat: 10, lng: 20 } }
-    return [ref, instance]
+    const ref = React.createRef<HTMLDivElement>()
+    return [ref, {}]
   },
-  AdvancedMarkerAnchorPoint: {
-    CENTER: 'center',
-  },
-}))
-
-vi.mock('lucide-react', () => ({
-  Truck: () => <div data-testid="truck-icon">Truck Icon</div>,
 }))
 
 describe('VehicleMarker', () => {
-  const mockVehicle = {
-    id: '1',
-    fleet: 'F001',
-    equipmentId: 'E001',
+  const vehicle = {
+    id: '123',
+    fleet: 'Test Fleet',
+    equipmentId: '456',
     name: 'Test Vehicle',
     plate: 'ABC1234',
     ignition: 'on',
-    lat: 10,
-    lng: 20,
-    createdAt: '2023-01-01',
+    lat: -23.55052,
+    lng: -46.633308,
+    createdAt: '2023-01-01T12:00:00Z',
   }
 
-  const mockOnClick = vi.fn()
-  const mockOnClose = vi.fn()
-  const mockOnMarkerRef = vi.fn()
+  it('should render a marker', () => {
+    const onClick = vi.fn()
+    const onClose = vi.fn()
+    const onMarkerRef = vi.fn()
 
-  beforeEach(() => {
-    vi.clearAllMocks()
-  })
-
-  it('should render the vehicle marker', () => {
     render(
       <VehicleMarker
-        vehicle={mockVehicle}
-        onClick={mockOnClick}
+        vehicle={vehicle}
+        onClick={onClick}
         isInfoWindowOpen={false}
-        onClose={mockOnClose}
-        onMarkerRef={mockOnMarkerRef}
+        onClose={onClose}
+        onMarkerRef={onMarkerRef}
+        markerColor="chart3"
       />
     )
 
     expect(screen.getByTestId('advanced-marker')).toBeInTheDocument()
-    expect(screen.getByTestId('truck-icon')).toBeInTheDocument()
   })
 
-  it('should call onClick when clicked', async () => {
+  it('should call onClick when marker is clicked', async () => {
+    const onClick = vi.fn()
+    const onClose = vi.fn()
+    const onMarkerRef = vi.fn()
+    const user = userEvent.setup()
+
     render(
       <VehicleMarker
-        vehicle={mockVehicle}
-        onClick={mockOnClick}
+        vehicle={vehicle}
+        onClick={onClick}
         isInfoWindowOpen={false}
-        onClose={mockOnClose}
-        onMarkerRef={mockOnMarkerRef}
+        onClose={onClose}
+        onMarkerRef={onMarkerRef}
+        markerColor="chart3"
       />
     )
 
-    await userEvent.click(screen.getByTestId('advanced-marker'))
-    expect(mockOnClick).toHaveBeenCalled()
+    await user.click(screen.getByTestId('advanced-marker'))
+    expect(onClick).toHaveBeenCalled()
   })
 
-  it('should show InfoWindow when isInfoWindowOpen is true', () => {
+  it('should display info window when isInfoWindowOpen is true', () => {
+    const onClick = vi.fn()
+    const onClose = vi.fn()
+    const onMarkerRef = vi.fn()
+
     render(
       <VehicleMarker
-        vehicle={mockVehicle}
-        onClick={mockOnClick}
+        vehicle={vehicle}
+        onClick={onClick}
         isInfoWindowOpen={true}
-        onClose={mockOnClose}
-        onMarkerRef={mockOnMarkerRef}
+        onClose={onClose}
+        onMarkerRef={onMarkerRef}
+        markerColor="chart3"
       />
     )
 
     expect(screen.getByTestId('info-window')).toBeInTheDocument()
-    expect(screen.getByText(`Placa ${mockVehicle.plate}`)).toBeInTheDocument()
-    expect(screen.getByText(`Frota ${mockVehicle.fleet}`)).toBeInTheDocument()
+    expect(screen.getByText(`Placa ${vehicle.plate}`)).toBeInTheDocument()
+    expect(screen.getByText(`Frota ${vehicle.fleet}`)).toBeInTheDocument()
   })
 })

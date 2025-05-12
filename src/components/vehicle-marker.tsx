@@ -17,6 +17,7 @@ interface VehiclesMarkerProps {
   isInfoWindowOpen: boolean
   onClose: () => void
   onMarkerRef: any
+  markerColor?: keyof typeof themeVars
 }
 
 export function VehicleMarker({
@@ -25,10 +26,14 @@ export function VehicleMarker({
   isInfoWindowOpen,
   onClose,
   onMarkerRef,
+  markerColor = 'chart3',
 }: VehiclesMarkerProps) {
   const mapRefetchInterval = useVehicleStore(state => state.mapRefetchInterval)
   const currentDateTime = useCurrentDateTime(mapRefetchInterval)
   const [markerRef, markerInstance] = useAdvancedMarkerRef()
+
+  const backgroundColor = themeVars[markerColor]
+  const borderColor = backgroundColor
 
   useEffect(() => {
     if (markerInstance) {
@@ -47,14 +52,14 @@ export function VehicleMarker({
         <div
           className="w-14 h-14 border-4 rounded-full flex items-center justify-center shadow-md"
           style={{
-            backgroundColor: themeVars.chart3,
-            borderColor: themeVars.chart3,
+            backgroundColor: backgroundColor,
+            borderColor: borderColor,
           }}
         >
           <div
             className="w-12 h-12 border-2 rounded-full flex items-center justify-center shadow-md"
             style={{
-              backgroundColor: themeVars.chart3,
+              backgroundColor: backgroundColor,
               borderColor: themeVars.white,
             }}
           >
@@ -64,7 +69,7 @@ export function VehicleMarker({
         <div
           className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-x-8 border-x-transparent border-t-[12px]"
           style={{
-            borderTopColor: themeVars.chart3,
+            borderTopColor: backgroundColor,
           }}
         />
       </div>

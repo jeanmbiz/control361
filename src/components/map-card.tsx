@@ -10,6 +10,13 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { Spinner } from './spinner'
 import { VehicleMarker } from './vehicle-marker'
 
+const markerColors: Array<keyof typeof themeVars> = [
+  'chart1',
+  'chart2',
+  'chart3',
+  'chart5',
+]
+
 export function MapCard() {
   const { mapVehicles, isFetchingMap, isLoadingMap } = useVehiclesMapQuery()
   const mapRefetchInterval = useVehicleStore(state => state.mapRefetchInterval)
@@ -73,13 +80,16 @@ export function MapCard() {
             reuseMaps
             disableDefaultUI
           >
-            {mapVehicles?.content?.locationVehicles?.map(vehicle => {
+            {mapVehicles?.content?.locationVehicles?.map((vehicle, index) => {
               const isInfoWindowOpen = selectedVehicleId === vehicle.id
+              const colorKey = markerColors[index % markerColors.length]
+
               return (
                 <VehicleMarker
                   data-testid="vehicle-marker"
                   key={vehicle.id}
                   vehicle={vehicle}
+                  markerColor={colorKey}
                   onClick={() => handleVehicleClick(vehicle.id)}
                   isInfoWindowOpen={isInfoWindowOpen}
                   onClose={handleClose}
