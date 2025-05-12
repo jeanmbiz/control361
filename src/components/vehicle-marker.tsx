@@ -77,7 +77,7 @@ export function VehicleMarker({
           onClose={onClose}
         >
           <div
-            className=" p-4 rounded-xl shadow-xl min-w-[220px] space-y-1 text-sm"
+            className=" p-4 rounded-xl shadow-xl min-w-[190px] space-y-1 text-sm"
             style={{
               backgroundColor: themeVars.background,
               color: themeVars.mutedForeground,
