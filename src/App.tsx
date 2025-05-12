@@ -9,15 +9,17 @@ import { router } from './routes'
 
 export function App() {
   return (
-    <ThemeProvider storageKey="control361-theme" defaultTheme="dark">
-      <HelmetProvider>
-        <Helmet titleTemplate="%s | Control 361º" />
-        <APIProvider apiKey={env.VITE_GOOGLE_MAPS_API_KEY}>
-          <QueryClientProvider client={queryClient}>
-            <RouterProvider router={router} />
-          </QueryClientProvider>
-        </APIProvider>
-      </HelmetProvider>
-    </ThemeProvider>
+    <div className="main-container">
+      <ThemeProvider storageKey="control361-theme" defaultTheme="dark">
+        <HelmetProvider>
+          <Helmet titleTemplate="%s | Control 361º" />
+          <APIProvider apiKey={env.VITE_GOOGLE_MAPS_API_KEY}>
+            <QueryClientProvider client={queryClient}>
+              <RouterProvider router={router} />
+            </QueryClientProvider>
+          </APIProvider>
+        </HelmetProvider>
+      </ThemeProvider>
+    </div>
   )
 }
