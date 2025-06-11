@@ -83,6 +83,16 @@ npx playwright test
 ## Testes e2e
 ![SITE](/src/assets/e2e-tests.png)
 
+## Mock de API com MSW
 
+Este projeto utiliza o [MSW (Mock Service Worker)](https://mswjs.io/) para simular as respostas da API em **todos os ambientes**: desenvolvimento, teste e produção pois a API com os dados não está mais disponibilizada.
+
+- As rotas `/recruitment/vehicles/list-with-paginate` são interceptadas e respondidas com dados mockados.
+- Os mocks estão localizados em `src/api/mocks/`.
+- A configuração do MSW é inicializada automaticamente em `src/main.tsx` e está sempre ativa.
+
+**Como funciona:**
+
+Ao rodar o projeto em qualquer ambiente, o MSW intercepta as requisições HTTP feitas pelo front-end para os endpoints da API e retorna dados simulados, permitindo que o sistema funcione normalmente mesmo sem um backend real.
 
 ### Link Vercel: [control361-vcwl.vercel.app/](https://control361-vcwl.vercel.app/)
