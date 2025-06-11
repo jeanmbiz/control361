@@ -8,6 +8,7 @@ import { queryClient } from './lib/react-query'
 import { router } from './routes'
 
 export function App() {
+  
   return (
     <div className="main-container">
       <ThemeProvider storageKey="control361-theme" defaultTheme="dark">
