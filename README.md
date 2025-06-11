@@ -1,6 +1,14 @@
 # Sobre o projeto
 
-Projeto Front-end React desenvolvido para a Control 361º.
+Projeto Front end em React para controle de frota de veículos de transportadora.
+
+## Regras de Negócio
+
+- O mapa deve apresentar todos os veículos rastreáveis simultaneamente e ser atualizado a cada 2 minutos automaticamente.
+- A lista deve carregar 20 veículos e ter um carrossel infinito que carrega mais veículos sempre que scrollamos até o final da lista.
+- Ao clicar em um veículo da tela, apresentar os detalhes do veículo.
+- Entre os detalhes do veículo existe um link que abre o Google Maps nas coordenadas do veículo.
+- Filtros de busca e detalhes apresentam dados da frota.
 
 # Frameworks e Bibliotecas utilizadas neste projeto:
 - React
